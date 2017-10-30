@@ -295,6 +295,7 @@ void resultados(int aposta[], int achado[]){
 			}
 		}
 	} else puts("VOCÊ NÃO ACERTOU NENHUM NÚMERO. TENTE NOVAMENTE.\n");
+
 }
 
 int main()
