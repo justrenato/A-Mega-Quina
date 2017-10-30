@@ -85,6 +85,7 @@ void pesqSeq(int tammax, int aposta[], int vetor[]){
 
 	#ifdef infoPesqSeq	
 		printf("\nPESQUISA SEQUENCIAL RESULTADOS: \n\n");
+		printf("\t------------------PESQUISA------------------\n\n");
 		for (int i = 0; i < numAposta; ++i)
 		{
 			printf("\tElemento: %d. comparações: %d. Encontrado: %d.\n",aposta[i],comps[i],achado[i] );
@@ -163,34 +164,71 @@ void bubbleSort(int tammax, int vetor[], int vetorOrden[]){
 }
 
 
-void mergeSort(int tammax, int vetor[], int vetorOrden[], int esq, int dir){
-	// int comps=0,movs=0;
-	// int meio,vetAux[tammax];
-	
-	// for (int i = 1; i <= tammax; ++i)
-	// {
-	// 	vetorOrden[i]=vetor[i];
-	// }
 
-	// #ifdef infoPesqBin
-	// 	printf("\n\tMERGESORT:\n");
-	// 	printf("\t\tVetorOrdenado: %d,",vetorOrden[1] );
-	// 	for (int i = 2; i < tammax; ++i)
-	// 	{
-	// 		printf(" %d,",vetorOrden[i]);
-	// 	}
-	// 	printf(" %d.\n",vetorOrden[tammax] );
-	// 	printf("\t\tNumero de comparações: %d.\n",comps);
-	// 	printf("\t\tNumero de movimentações: %d.\n",movs);
-	// #endif
+void merge(int vetorOrden[], int esq, int meio, int dir) {
+    int esq1 = esq, esq2 = meio+1, esqAux = 0;
+    int vetorAux[dir-esq+1];
+    while(esq1<=meio && esq2<=dir){
+        if(vetorOrden[esq1] <= vetorOrden[esq2]){
+            vetorAux[esqAux] = vetorOrden[esq1];
+            esq1++;
+        }else{
+            vetorAux[esqAux] = vetorOrden[esq2];
+            esq2++;
+        }
+        esqAux++;
+    }
+    while(esq1<=meio){ 
+        vetorAux[esqAux] = vetorOrden[esq1];
+        esqAux++;esq1++;
+    }
+    while(esq2<=dir){  
+        vetorAux[esqAux] = vetorOrden[esq2];
+        esqAux++;esq2++;
+    }
+    for(esqAux=esq;esqAux<=dir;esqAux++){
+        vetorOrden[esqAux] = vetorAux[esqAux-esq];
+    }
+}
+
+
+void mergeS(int vetorOrden[], int esq, int dir){
+    if (esq < dir) {
+        int meio = (dir+esq)/2;
+        mergeS(vetorOrden, esq, meio);
+        mergeS(vetorOrden, meio+1, dir);
+        merge(vetorOrden, esq, meio, dir);
+    }
+}
+
+void mergeSort(int tammax, int vetor[], int vetorOrden[], int esq, int dir){
+	int comps=0,movs=0;
+	int meio,vetAux[tammax];
+	
+	for (int i = 1; i <= tammax; ++i)
+	{
+		vetorOrden[i]=vetor[i];
+	}
+
+	mergeS(vetorOrden,1,tammax);
+
+	#ifdef infoPesqBin
+		printf("\n\tMERGESORT:\n");
+		printf("\t\tVetorOrdenado: %d,",vetorOrden[1] );
+		for (int i = 2; i < tammax; ++i)
+		{
+			printf(" %d,",vetorOrden[i]);
+		}
+		printf(" %d.\n",vetorOrden[tammax] );
+		printf("\t\tNumero de comparações: %d.\n",comps);
+		printf("\t\tNumero de movimentações: %d.\n",movs);
+	#endif
 }
 
 
 int binsearch (int vetorOrden[], int elemento, int tammax, int *comps)
 {
-     int esq = 1;    
-     int dir = tammax;
-     int meio;
+     int esq = 1, dir = tammax, meio;
      while (esq <= dir)
      {
           meio = (esq + dir)/2;
@@ -205,15 +243,16 @@ int binsearch (int vetorOrden[], int elemento, int tammax, int *comps)
      return 0;   // não encontrado
 }
 
-void pesqBin(int tammax, int aposta[], int vetor[]){
+void pesqBin(int tammax, int aposta[], int vetor[],int achado[]){
 	int vetorOrden[tammax]; //vetor ordenado criado dentro da função pois só sera usado aqui.
-	int comps[numAposta],achado[numAposta];
+	int comps[numAposta];
 	for (int i = 0; i < numAposta; ++i)
 	{
 		comps[i]=0;
 	}
 	#ifdef infoPesqBin
 		printf("\nPESQUISA BINARIA RESULTADOS: \n\n");
+		printf("\t------------------ORDENAÇÂO------------------\n\n");
 	#endif
 	
 	selectSort(tammax,vetor,vetorOrden);
@@ -227,11 +266,36 @@ void pesqBin(int tammax, int aposta[], int vetor[]){
 
 	#ifdef infoPesqBin
 		printf("\n");
+		printf("\t------------------PESQUISA------------------\n\n");
 		for (int i = 0; i < numAposta; ++i)
 		{
 			printf("\tElemento: %d. comparações: %d. Encontrado: %d.\n",aposta[i],comps[i],achado[i] );
 		}
 	#endif
+}
+
+void resultados(int aposta[], int achado[]){
+	int cont=0;
+	for (int i = 0; i < numAposta; ++i)	if(achado[i]) cont++;
+	
+	printf("\n\nRESULTADOS DA APOSTA: \n\n");
+	
+	if (cont)
+	{
+		printf("\tPARABÉNS VOCÊ ACERTOU %d NÚMERO(S)\n\n",cont);
+		for (int i = 0; i < numAposta; ++i)
+		{
+			if (achado[i])
+			{
+				printf("Elemento: %d = ACERTOU \\o/\n",aposta[i] );
+			}
+			else {
+				printf("Elemento: %d = ERROU =(\n",aposta[i] );
+			}
+		}
+
+	} else puts("VOCÊ NÃO ACERTOU NENHUM NÚMERO. TENTE NOVAMENTE.\n");
+
 }
 
 int main()
@@ -240,6 +304,7 @@ int main()
 	int maior; // maior numero que podera ser sorteado 
 	int vetor[vetMax]; // vetor que guarda os numeros aleatorios gerados
 	int aposta[numAposta]; // vetor que guarda os numeros apostados pelo usuario
+	int achado[numAposta]; // vetor que guarda os resultados da aposta
 
 	int continuar=1;
 
@@ -250,7 +315,8 @@ int main()
 		gerarAleatorios(tammax,maior,vetor);
 		lerAposta(maior,aposta);
 		pesqSeq(tammax,aposta,vetor);
-		pesqBin(tammax,aposta,vetor);
+		pesqBin(tammax,aposta,vetor,achado);
+		resultados(aposta, achado);
 		printf("\nDESEJA JOGAR NOVAMENTE? (1- sim. 0- não.)\n");
 		scanf("%d",&continuar);
 		while((continuar!=0)&&(continuar!=1)){
