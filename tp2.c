@@ -172,7 +172,7 @@ void bubbleSort(int tammax, int vetor[], int vetorOrden[]){
 
 
 
-void merge(int vetorOrden[], int esq, int meio, int dir) {
+void merge(int vetorOrden[], int esq, int meio, int dir, int *comps, int *movs) {
     int esq1 = esq, esq2 = meio+1, esqAux = 0;
     int vetorAux[dir-esq+1];
     while(esq1<=meio && esq2<=dir){
@@ -183,6 +183,7 @@ void merge(int vetorOrden[], int esq, int meio, int dir) {
             vetorAux[esqAux] = vetorOrden[esq2];
             esq2++;
         }
+        *comps=*comps+1;
         esqAux++;
     }
     while(esq1<=meio){ 
@@ -197,16 +198,17 @@ void merge(int vetorOrden[], int esq, int meio, int dir) {
     }
     for(int i=esq;i<=dir;i++){
         vetorOrden[i] = vetorAux[i-esq];
+        *movs=*movs+1;
     }
 }
 
 
-void mergeS(int vetorOrden[], int esq, int dir){
+void mergeS(int vetorOrden[], int esq, int dir,int *comps,int *movs){
     if (esq < dir) {
         int meio = (dir+esq)/2;
-        mergeS(vetorOrden, esq, meio);
-        mergeS(vetorOrden, meio+1, dir);
-        merge(vetorOrden, esq, meio, dir);
+        mergeS(vetorOrden, esq, meio,comps,movs);
+        mergeS(vetorOrden, meio+1, dir,comps,movs);
+        merge(vetorOrden, esq, meio, dir,comps,movs);
     }
 }
 
@@ -219,7 +221,7 @@ void mergeSort(int tammax, int vetor[], int vetorOrden[], int esq, int dir){
 		vetorOrden[i]=vetor[i];
 	}
 
-	mergeS(vetorOrden,1,tammax);
+	mergeS(vetorOrden,1,tammax,&comps,&movs);
 
 	#ifdef infoPesqBin
 		printf("\n\tMERGESORT:\n");
