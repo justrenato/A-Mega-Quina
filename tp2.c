@@ -89,7 +89,13 @@ void pesqSeq(int tammax, int aposta[], int vetor[]){
 		printf("\t------------------PESQUISA------------------\n\n");
 		for (int i = 0; i < numAposta; ++i)
 		{
-			printf("\tElemento: %d. comparações: %d. Encontrado: %d.\n",aposta[i],comps[i],achado[i] );
+			if (achado[i])
+			{
+				printf("\tElemento: %d. comparações: %d. Encontrado: Sim.\n",aposta[i],comps[i]);
+			}
+			else{
+				printf("\tElemento: %d. comparações: %d. Encontrado: Não.\n",aposta[i],comps[i]);
+			}
 		}
 	#endif
 }
@@ -181,14 +187,16 @@ void merge(int vetorOrden[], int esq, int meio, int dir) {
     }
     while(esq1<=meio){ 
         vetorAux[esqAux] = vetorOrden[esq1];
-        esqAux++;esq1++;
+        esqAux++;
+        esq1++;
     }
     while(esq2<=dir){  
         vetorAux[esqAux] = vetorOrden[esq2];
-        esqAux++;esq2++;
+        esqAux++;
+        esq2++;
     }
-    for(esqAux=esq;esqAux<=dir;esqAux++){
-        vetorOrden[esqAux] = vetorAux[esqAux-esq];
+    for(int i=esq;i<=dir;i++){
+        vetorOrden[i] = vetorAux[i-esq];
     }
 }
 
@@ -270,7 +278,13 @@ void pesqBin(int tammax, int aposta[], int vetor[],int achado[]){
 		printf("\t------------------PESQUISA------------------\n\n");
 		for (int i = 0; i < numAposta; ++i)
 		{
-			printf("\tElemento: %d. comparações: %d. Encontrado: %d.\n",aposta[i],comps[i],achado[i] );
+			if (achado[i])
+			{
+				printf("\tElemento: %d. comparações: %d. Encontrado: Sim.\n",aposta[i],comps[i]);
+			}
+			else{
+				printf("\tElemento: %d. comparações: %d. Encontrado: Não.\n",aposta[i],comps[i]);
+			}
 		}
 	#endif
 }
@@ -294,7 +308,7 @@ void resultados(int aposta[], int achado[]){
 				printf("Número: %d = ERROU =(\n",aposta[i] );
 			}
 		}
-	} else puts("VOCÊ NÃO ACERTOU NENHUM NÚMERO. TENTE NOVAMENTE.\n");
+	} else puts("\tVOCÊ NÃO ACERTOU NENHUM NÚMERO. TENTE NOVAMENTE.\n");
 
 }
 
