@@ -102,7 +102,7 @@ void pesqSeq(int tammax, int aposta[], int vetor[]){
 
 void selectSort(int tammax, int vetor[], int vetorOrden[]){
 	int min,aux,comps=0,movs=0;
-	for (int i = 1; i <= tammax; ++i)
+	for (int i = 1; i <= tammax; ++i) //atribuindo vetor original ao vetor a ser ordenado
 	{
 		vetorOrden[i]=vetor[i];
 	}
@@ -137,7 +137,7 @@ void selectSort(int tammax, int vetor[], int vetorOrden[]){
 
 void bubbleSort(int tammax, int vetor[], int vetorOrden[]){
 	int aux,comps=0,movs=0;
-	for (int i = 1; i <= tammax; ++i)
+	for (int i = 1; i <= tammax; ++i) //atribuindo vetor original ao vetor a ser ordenado
 	{
 		vetorOrden[i]=vetor[i];
 	}
@@ -183,17 +183,20 @@ void merge(int vetorOrden[], int esq, int meio, int dir, int *comps, int *movs) 
             vetorAux[esqAux] = vetorOrden[esq2];
             esq2++;
         }
+        *movs=*movs+1;
         *comps=*comps+1;
         esqAux++;
     }
     while(esq1<=meio){ 
         vetorAux[esqAux] = vetorOrden[esq1];
         esqAux++;
+        *movs=*movs+1;
         esq1++;
     }
     while(esq2<=dir){  
         vetorAux[esqAux] = vetorOrden[esq2];
         esqAux++;
+        *movs=*movs+1;
         esq2++;
     }
     for(int i=esq;i<=dir;i++){
@@ -216,7 +219,7 @@ void mergeSort(int tammax, int vetor[], int vetorOrden[], int esq, int dir){
 	int comps=0,movs=0;
 	int meio,vetAux[tammax];
 	
-	for (int i = 1; i <= tammax; ++i)
+	for (int i = 1; i <= tammax; ++i) //atribuindo vetor original ao vetor a ser ordenado
 	{
 		vetorOrden[i]=vetor[i];
 	}
