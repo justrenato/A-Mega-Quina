@@ -1,1 +1,59 @@
-ASLKDKJLASDJKl
+Nome: Renato Ribeiro da Silva 	GRR20172113.
+
+Este trabalho foi desenvolvido apenas por mim, uma vez que não encontrei dupla.
+
+	O programa consiste na simulação de um jogo da Mega Quina. Onde o usuario faz uma aposta de cinco numeros, e ganha o jogo quando seus cinco numeros são sorteados.
+No inicio da execução o jogador deve informar como parametro o tamanho de um vetor de inteiros, na sequência deve informar qual o maior valor podera ser gerado aleatoriamente.
+Após a passagem desses dois parametros, o programa gera o vetor com os valores aleatorios. Para criação do vetor foi utilizado alocação de memória estatica.
+	O passo seguinte é a coleta dos cinco numeros que serão apostados. Após isso o programa informa na tela quais foram os elementos da aposta e da inicio a pesquisa para identificar
+quais numeros foram sorteados.
+	A primeira forma de pesquisa é a pesquisa Sequencial, onde para cada elemento é informado quantas comparações foram feitas e se o mesmo foi ou não encontrado, no seguinte formato: 
+
+												Numeros apostados: 1, 2, 3, 4, 5.
+
+												PESQUISA SEQUENCIAL RESULTADOS: 
+
+													------------------PESQUISA------------------
+
+													Elemento: 1. comparações: 18. Encontrado: Sim.
+													Elemento: 2. comparações: 20. Encontrado: Não.
+													Elemento: 3. comparações: 15. Encontrado: Sim.
+													Elemento: 4. comparações: 20. Encontrado: Não.
+													Elemento: 5. comparações: 12. Encontrado: Sim.
+
+	A segunda forma de pesquisa é a pesquisa Binaria, onde antes da pesquisa em si, é necessaria a ordenação do vetor de elementos. Ordenação que é feita neste programa utilizando
+tres algoritimos de ordenação: Selecsort, Bubblesort e Mergesort. Em cada ordenação, o vetor original é copiado para um vetor a ser ordenado, e também é informado o número de comparações
+e movimentações feito por cada algoritimo. Após isso, assim como na pesquisa sequencial é informato quantas comparações foram feitas para cada elemento e se foi ou não encontrado, ficando
+da seguinte forma:
+
+													PESQUISA BINARIA RESULTADOS: 
+
+														------------------ORDENAÇÂO------------------
+
+														SELECTSORT:
+															VetorOrdenado: 1, 3, 5, 6, 6, 6, 7, 8, 8, 9, 9, 10, 10, 11, 12, 12, 13, 19, 19, 19.
+															Numero de comparações: 190.
+															Numero de movimentações: 19.
+
+														BUBBLESORT:
+															VetorOrdenado: 1, 3, 5, 6, 6, 6, 7, 8, 8, 9, 9, 10, 10, 11, 12, 12, 13, 19, 19, 19.
+															Numero de comparações: 190.
+															Numero de movimentações: 92.
+
+														MERGESORT:
+															VetorOrdenado: 1, 3, 5, 6, 6, 6, 7, 8, 8, 9, 9, 10, 10, 11, 12, 12, 13, 19, 19, 19.
+															Numero de comparações: 65.
+															Numero de movimentações: 176.
+
+														------------------PESQUISA------------------
+
+														Elemento: 1. comparações: 4. Encontrado: Sim.
+														Elemento: 2. comparações: 4. Encontrado: Não.
+														Elemento: 3. comparações: 3. Encontrado: Sim.
+														Elemento: 4. comparações: 4. Encontrado: Não.
+														Elemento: 5. comparações: 4. Encontrado: Sim.
+
+
+	Após isso é impresso na tela os resultados, com a contagem de acertos feitos pelo usuario, e também quais foram os numeros apostados que foram sorteados.
+	Em todo fim de resultados é solicitado ao usuario se deseja ou não fazer um  novo jogo, onde toda esta sequencia é reiniciada.
+	Para implementação dos algoritimos foram usados algoritimos 
